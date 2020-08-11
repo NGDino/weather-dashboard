@@ -7,12 +7,14 @@ function displayCurrentWeather(info, cityName) {
     console.log('func disp weather called')
 
     var temp = info.current.temp;
+
     //originally calculated temperature Didn't know I could get it in imperial
     // let tempInF = (kelvinTemp - 273.15) * (9 / 5) + 32;
     // let currentTemp = Math.round(tempInF)
     // console.log(temp)
 
     var windSpeed =info.current.wind_speed
+
     //originally calculated imperial conversions.  
     // var meterWindSpeed = info.current.wind_speed
     // let windMph = meterWindSpeed * 2.237
@@ -24,6 +26,8 @@ function displayCurrentWeather(info, cityName) {
 
     var uvIndex = info.current.uvi
     // console.log(uvIndex)
+
+    
 
     // console.log('from display func', cityName)
 
@@ -61,8 +65,6 @@ function displayForecast(info) {
         var dateUnix= daily[i].dt
 
         //formula to get date out of unix time
-        
-
         const timeMillis = dateUnix * 1000;
 
         const dateObject = new Date(timeMillis)
