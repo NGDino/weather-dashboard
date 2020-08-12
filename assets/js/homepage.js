@@ -163,6 +163,11 @@ var cityInputEl = document.querySelector("#city")
 // takes in city input 
 function formSubmitHandler(event) {
     event.preventDefault();
+    const currentContainer = document.querySelector('#current-weather')
+    currentContainer.innerHTML= ''
+
+    const forcastContainer = document.querySelector("#forcast-cards")
+    forcastContainer.innerHTML= ''
 
     //gets rid of spaces
     var city = cityInputEl.value.trim();
