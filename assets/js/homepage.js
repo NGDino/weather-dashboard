@@ -2,10 +2,59 @@ var currentWeatherEl = document.querySelector("#current-Weather");
 var searchHistoryEl = document.querySelector("#search-history");
 var fiveDayEl = document.querySelector("#five-day")
 var historyCounter = localStorage.length
+var prevCities = []
+var cityHistory = JSON.parse(window.localStorage.getItem('searchedCities'))
+
+function displayHistory(){
+    var uniqueCities = [...new Set(cityHistory)]
+    
+    var listGroup = document.querySelector("#cityList")
+
+    
+
+    
+    
+    if(!cityHistory){
+        console.log('local storage empty')
+        searchHistoryEl.innerHTML= ""
+    }
+    else{
+        for(i=0; i < uniqueCities.length; i++){
+        var searchList = document.createElement('a');
+        searchList.href = "#"
+        searchList.classList.add('list-group-item', 'list-group-item-action');
+
+        searchList.innerHTML =`
+        ${uniqueCities[i]}
+        `
+
+        listGroup.appendChild(searchList)
+        }
+                
+    
+    }
+}
+
+function searchHistory(city){
+
+    if(cityHistory){
+        let prevCities = cityHistory
+        console.log("search Histroy", city)
+        prevCities.push(city)
+        console.log("prev cities array", prevCities)
+        localStorage.setItem('searchedCities', JSON.stringify(prevCities))
+    }else{
+        prevCities.push(city)
+        console.log("prev cities array", prevCities)
+        localStorage.setItem('searchedCities', JSON.stringify(prevCities))
+    }
+    
+
+}
+
 
 function displayCurrentWeather(info, cityName) {
-    console.log('func disp weather called')
-
+    
     var temp = info.current.temp;
 
     //originally calculated temperature Didn't know I could get it in imperial
@@ -129,23 +178,14 @@ function getCurrentWeather(city) {
                 response.json().then(function (data) {
                     // console.log(data)
                     //displayRepos(data, city)
-
-                    localStorage.setItem(historyCounter, city)
-                    historyCounter++
-
+                    
+                    // localStorage.setItem(historyCounter, JSON.stringify(city))
+                    // historyCounter++
+                    searchHistory(city)
 
                     var cityName = data.name
                     var lat = data.coord.lat;
                     var lon = data.coord.lon
-
-                    // console.log('cityName', cityName)
-
-                    // console.log(lat);
-                    // console.log(lon);
-
-
-
-
 
                     getAllWeather(lat, lon, cityName);
                 });
@@ -186,5 +226,9 @@ function formSubmitHandler(event) {
 
 
 }
+
+displayHistory()
+
 //listen for submit button
 cityFormEl.addEventListener("submit", formSubmitHandler);
+
