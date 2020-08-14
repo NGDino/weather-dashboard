@@ -21,6 +21,16 @@ function displayHistory() {
         for (i = 0; i < uniqueCities.length; i++) {
             var searchList = document.createElement('a');
             searchList.href = "#"
+            searchList.onclick = function searchAgain(){
+                var listItem = $('.list-group-item')
+                var textValue = listItem.text()
+                console.log('func called', textValue)
+            
+                 city = textValue
+            
+                getCurrentWeather(city)
+                
+            };
             searchList.classList.add('list-group-item', 'list-group-item-action');
 
             searchList.innerHTML = `
@@ -30,6 +40,8 @@ function displayHistory() {
         }
     }
 }
+
+
 
 //clears history
 function clearHistory(){
