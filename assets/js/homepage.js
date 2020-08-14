@@ -1,7 +1,7 @@
 var currentWeatherEl = document.querySelector("#current-Weather");
 var searchHistoryEl = document.querySelector("#search-history");
 var fiveDayEl = document.querySelector("#five-day")
-var clearButton = document.querySelector("#clear-button")
+
 //array to be used in local storage
 var prevCities = []
 //pulling the array back out from its string form in local storage
@@ -33,6 +33,7 @@ function displayHistory() {
 
 //clears history
 function clearHistory(){
+    console.log('buttonworks')
     searchHistoryEl.innerHTML = ""
     window.localStorage.clear()
 }
@@ -204,6 +205,7 @@ function getCurrentWeather(city) {
 var cityFormEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#city")
 var searchBtn = document.querySelector("#search")
+var clearButton = document.querySelector("#clear-button")
 
 
 // takes in city input 
@@ -240,4 +242,4 @@ displayHistory()
 //listen for submit button
 cityFormEl.addEventListener("submit", formSubmitHandler);
 
-clearButton.addEventListener("reset", clearHistory)
+clearButton.addEventListener("click", clearHistory)
