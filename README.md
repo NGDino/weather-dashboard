@@ -4,17 +4,19 @@
 
 This project for UCB Extension Full Stack Bootcamp is a interactive weather dashboard using server side API's to give you the current weather, your search history and a five day forcast for the city entered in the input.  The search input will return an alert if it does not receive data back meaning you entered a city that is not valid.
 
+![Dashboard Image](assets\images\weatherImage.jpg)
+
 ### Technologies used:
 
-    * HTML
-    * CSS
-    * JavaScript
-    * Jquery (very little)
-    * Bootstrap
-    * Open Weather Map API
-    * Local Storage
+* HTML
+* CSS
+* JavaScript
+* Jquery (very little)
+* Bootstrap
+* Open Weather Map API
+* Local Storage
 
-    ![Dashboard Image](assets\images\weatherImage.jpg)
+    
 
 ## API Calls
 
