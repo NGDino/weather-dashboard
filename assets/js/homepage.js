@@ -12,6 +12,8 @@ function displayHistory() {
     //get rid of duplicate searches
     var uniqueCities = [...new Set(cityHistory)]
 
+    console.log('unique',uniqueCities)
+
     var listGroup = document.querySelector("#cityList")
 
     if (!cityHistory) {
@@ -21,7 +23,7 @@ function displayHistory() {
         for (i = 0; i < uniqueCities.length; i++) {
             var searchList = document.createElement('a');
             searchList.href = "#"
-            searchList.setAttribute("onclick", "function searchAgain()");
+            searchList.setAttribute("onclick", "searchAgain(event)");
             searchList.classList.add('list-group-item', 'list-group-item-action');
 
             searchList.innerHTML = `
@@ -32,12 +34,11 @@ function displayHistory() {
     }
 }
 
-function searchAgain(){
-    var listItem = $('.list-group-item')
-    var textValue = listItem.text()
-    console.log('func called', textValue)
+function searchAgain(event){
+    console.log('click works')
+    var listItem = event.target.innerText
 
-     city = textValue
+    city = listItem
 
     getCurrentWeather(city)
     
@@ -51,15 +52,23 @@ function clearHistory(){
 }
 
 function searchHistory(city) {
+    const words = city.split(" ")
+    console.log('should be 2', words)
+        for(i=0; i < words.length; i++){
+            words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+        }
+        const capCity= words.join(' ')
 
     if (cityHistory) {
         let prevCities = cityHistory
         console.log("search Histroy", city)
-        prevCities.push(city)
+       
+
+        prevCities.push(capCity)
         console.log("prev cities array", prevCities)
         localStorage.setItem('searchedCities', JSON.stringify(prevCities))
     } else {
-        prevCities.push(city)
+        prevCities.push(capCity)
         console.log("prev cities array", prevCities)
         localStorage.setItem('searchedCities', JSON.stringify(prevCities))
     }
@@ -67,18 +76,12 @@ function searchHistory(city) {
 
 
 function displayCurrentWeather(info, cityName) {
-    var temp = info.current.temp;
-    //originally calculated temperature Didn't know I could get it in imperial
-    // let tempInF = (kelvinTemp - 273.15) * (9 / 5) + 32;
-    // let currentTemp = Math.round(tempInF)
-    // console.log(temp)
 
+    console.log('info', info)
+    var temp = info.current.temp;
+    
     var windSpeed = info.current.wind_speed
-    //originally calculated imperial conversions.  
-    // var meterWindSpeed = info.current.wind_speed
-    // let windMph = meterWindSpeed * 2.237
-    // let windSpeed = Math.round(windMph)
-    // console.log(windSpeed)
+    
 
     var currentHumidity = info.current.humidity;
     // console.log(currentHumidity)
@@ -117,7 +120,7 @@ function displayCurrentWeather(info, cityName) {
 
 function displayForecast(info) {
     var daily = info.daily
-
+    console.log('daily', daily)
     // var firstHumidity = daily[0].humidity
     // console.log(firstHumidity)
 
@@ -148,16 +151,16 @@ function displayForecast(info) {
         console.log('humidity=', humidity, 'temp =', temp, 'icon', ikon, 'date', finalDate)
 
         var forcastDiv = document.createElement('div');
-        forcastDiv.classList.add('col', 'card', 'bg-light');
+        forcastDiv.classList.add('col-sm', 'card', 'bg-light');
 
         // add the inner html
         forcastDiv.innerHTML = `
-            <div class="card-body text-center">
-                            <p class="card-text font-weight-bold">${finalDate} </p>
-                            <img src="http://openweathermap.org/img/wn/${ikon}@2x.png" alt="alternatetext">
-                            <p class="card-text ">Temp: ${temp} F </p>
-                            <p class="card-text ">Humidity: ${humidity}% </p>
-                        </div>
+            <div class="card-body  text-center">
+                <p class="card-text font-weight-bold">${finalDate} </p>
+                <img src="http://openweathermap.org/img/wn/${ikon}@2x.png" alt="alternatetext">
+                <p class="card-text ">Temp: ${temp} F </p>
+                <p class="card-text ">Humidity: ${humidity}% </p>
+            </div>
             `
         var forcastContainer = document.querySelector("#forcast-cards")
 
