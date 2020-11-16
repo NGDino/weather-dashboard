@@ -35,8 +35,4 @@ I was able to display the 5 day forcast very similarly to the current weather.  
 
 ## Search History
 
-The search history uses local storage to display the cities that have already been searched for.  It logs the search into local storage after it returns a result to insure you dont save a bogus search that does not return data.  When the page loads it will append the previous searches using for loop that adds element, innerHTML and appendchild.  I made these a link to search for the previous result again.  I also made it so that duplicates do not show up
-
-## What can be improved
-
-When I have some time to revist this I would like to fix the bug making it so duplicates can show up with a capital or lowercase letter.  This could be done easily by making the previous searches show up in all caps.  I also had trouble getting it to search for the previous search.  It only works when there is one result in local storage.
+The search history uses local storage to display the cities that have already been searched for.  It logs the search into local storage after it returns a result to insure you dont save a bogus search that does not return data.  When the page loads it will append the previous searches using for loop that adds element, innerHTML and appendchild.  I made these a link to search for the previous result again.  I also made it so that duplicates do not show up and all of the cities are capitalized.
