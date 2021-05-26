@@ -33,5 +33,5 @@ I was able to display the 5 day forcast very similarly to the current weather.  
 
 ## Search History
 
-The search history uses local storage to display the cities that have already been searched for.  It logs the search into local storage after it returns a result to insure you dont save a bogus search that does not return data.  When the page loads, or after a search it will append the previous searches using for loop that adds an LI element, applies innerHTML and then uses appendchild.  I made these a link to search for the previous result again.  Duplicates do not show up using a new Set.
+The search history uses local storage to display the cities that have already been searched for.  It logs the search into local storage after it returns a result to insure you dont save a bogus search that does not return data.  When the page loads, or after a search it will append the previous searches using for loop that adds an LI element, applies innerHTML and then uses appendchild.  I made these a link to search for the previous result again.  Duplicates do not show up by using a new Set.
 
