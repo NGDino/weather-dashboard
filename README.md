@@ -2,9 +2,9 @@
 
 ## Overview
 
-This project for UCB Extension Full Stack Bootcamp is a interactive weather dashboard using server side API's to give you the current weather, your search history and a five day forcast for the city entered in the input.  The search input will return an alert if it does not receive data back meaning you entered a city that is not valid.
+This project for UCB Extension Full Stack Bootcamp is a interactive weather dashboard using server side API's to give you the current weather, your search history and a five day forcast for the city entered in the input.  The search input will return an alertif it receives a city that is not valid.
 
-![Dashboard Image](images/weatherImage.jpg)
+![Dashboard Image](images/weather-responsive.png)
 
 ### Technologies used:
 
@@ -16,8 +16,6 @@ This project for UCB Extension Full Stack Bootcamp is a interactive weather dash
 * Open Weather Map API
 * Local Storage
 
-    
-
 ## API Calls
 
 This appication makes 2 api calls.  
@@ -27,7 +25,7 @@ The first uses the city name and gives some information about current weather.  
 ## Current Weather
 
 The current weather shows the temp, humidity, windspeed and UV Index.  The UV Index will dynamically change colors based on how severity of the ultraviolet rays.  I simply changed the bootstrap class tags to change background color for the span.
-The current weather is displayed by simply creating an element, using innerHTML to fill in the contents, and appending the child.
+The current weather is displayed by creating an element, using innerHTML to fill in the contents, and appending the child.
 
 ## Forecast
 
@@ -35,8 +33,5 @@ I was able to display the 5 day forcast very similarly to the current weather.  
 
 ## Search History
 
-The search history uses local storage to display the cities that have already been searched for.  It logs the search into local storage after it returns a result to insure you dont save a bogus search that does not return data.  When the page loads it will append the previous searches using for loop that adds element, innerHTML and appendchild.  I made these a link to search for the previous result again.  I also made it so that duplicates do not show up
+The search history uses local storage to display the cities that have already been searched for.  It logs the search into local storage after it returns a result to insure you dont save a bogus search that does not return data.  When the page loads, or after a search it will append the previous searches using for loop that adds an LI element, applies innerHTML and then uses appendchild.  I made these a link to search for the previous result again.  Duplicates do not show up using a new Set.
 
-## What can be improved
-
-When I have some time to revist this I would like to fix the bug making it so duplicates can show up with a capital or lowercase letter.  This could be done easily by making the previous searches show up in all caps.  I also had trouble getting it to search for the previous search.  It only works when there is one result in local storage.

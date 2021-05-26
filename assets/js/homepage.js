@@ -1,6 +1,8 @@
 var currentWeatherEl = document.querySelector("#current-Weather");
 var searchHistoryEl = document.querySelector("#search-history");
 var fiveDayEl = document.querySelector("#five-day")
+var listGroup = document.querySelector("#cityList")
+
 
 //array to be used in local storage
 var prevCities = []
@@ -10,14 +12,13 @@ var cityHistory = JSON.parse(window.localStorage.getItem('searchedCities'))
 //publishes the search history to the page
 function displayHistory() {
     //get rid of duplicate searches
-    var uniqueCities = [...new Set(cityHistory)]
+    listGroup.innerHTML =''
 
-    console.log('unique',uniqueCities)
+    var uniqueCities = [...new Set(JSON.parse(window.localStorage.getItem('searchedCities')))]
 
-    var listGroup = document.querySelector("#cityList")
+
 
     if (!cityHistory) {
-        console.log('local storage empty')
         searchHistoryEl.innerHTML = ""
     } else {
         for (i = 0; i < uniqueCities.length; i++) {
@@ -35,7 +36,6 @@ function displayHistory() {
 }
 
 function searchAgain(event){
-    console.log('click works')
     var listItem = event.target.innerText
 
     city = listItem
@@ -46,14 +46,11 @@ function searchAgain(event){
 
 //clears history
 function clearHistory(){
-    console.log('buttonworks')
-    searchHistoryEl.innerHTML = ""
     window.localStorage.clear()
 }
 
 function searchHistory(city) {
     const words = city.split(" ")
-    console.log('should be 2', words)
         for(i=0; i < words.length; i++){
             words[i] = words[i][0].toUpperCase() + words[i].substr(1);
         }
@@ -61,33 +58,31 @@ function searchHistory(city) {
 
     if (cityHistory) {
         let prevCities = cityHistory
-        console.log("search Histroy", city)
-       
 
         prevCities.push(capCity)
-        console.log("prev cities array", prevCities)
         localStorage.setItem('searchedCities', JSON.stringify(prevCities))
+        displayHistory()
+
+
     } else {
         prevCities.push(capCity)
-        console.log("prev cities array", prevCities)
         localStorage.setItem('searchedCities', JSON.stringify(prevCities))
+        displayHistory()
+
     }
 }
 
 
 function displayCurrentWeather(info, cityName) {
 
-    console.log('info', info)
     var temp = info.current.temp;
     
     var windSpeed = info.current.wind_speed
     
 
     var currentHumidity = info.current.humidity;
-    // console.log(currentHumidity)
 
     var uvIndex = info.current.uvi
-    // console.log(uvIndex)
 
     //make the class for the UV Index change color
     var uvClass = ''
@@ -99,7 +94,6 @@ function displayCurrentWeather(info, cityName) {
         uvClass = '"bg-danger"'
     }
 
-    // console.log('from display func', cityName)
 
     //create the div to be appended
     var currentWeatherDiv = document.createElement('div');
@@ -120,9 +114,7 @@ function displayCurrentWeather(info, cityName) {
 
 function displayForecast(info) {
     var daily = info.daily
-    console.log('daily', daily)
     // var firstHumidity = daily[0].humidity
-    // console.log(firstHumidity)
 
 
     for (i = 1; i < 6; i++) {
@@ -130,7 +122,6 @@ function displayForecast(info) {
 
         var temp = daily[i].temp.day
         var dailyWeather = daily[i].weather
-        // console.log(dailyWeather)
         let ikon = dailyWeather[0].icon
         var dateUnix = daily[i].dt
 
@@ -141,14 +132,10 @@ function displayForecast(info) {
 
         const humanDateFormat = dateObject.toLocaleString()
 
-        // console.log(humanDateFormat)
 
         let splitDate = humanDateFormat.split(',')
-        // console.log(splitDate)
         let finalDate = splitDate[0]
-        // console.log(finalDate)
 
-        console.log('humidity=', humidity, 'temp =', temp, 'icon', ikon, 'date', finalDate)
 
         var forcastDiv = document.createElement('div');
         forcastDiv.classList.add('col-sm', 'card', 'bg-light');
@@ -173,12 +160,10 @@ function displayForecast(info) {
 
 //api call to get all info using lat and lon
 function getAllWeather(lat, lon, cityName) {
-    //console.log("function called")
     var urlTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial" + "&%20exclude=&appid=ffa287a41d8fa9185d665601ec3150eb"
     fetch(urlTwo).then(function (responseTwo) {
         if (responseTwo.ok) {
             responseTwo.json().then(function (info) {
-                console.log(info)
 
                 // var daily = info.daily
 
@@ -197,7 +182,6 @@ function getCurrentWeather(city) {
 
             if (response.ok) {
                 response.json().then(function (data) {
-                    // console.log(data)
                     //displayRepos(data, city)
 
                     // localStorage.setItem(historyCounter, JSON.stringify(city))
@@ -236,7 +220,6 @@ function formSubmitHandler(event) {
     var city = cityInputEl.value.trim();
 
 
-    // console.log(city)
     // if city gets a result then 
     if (city) {
         getCurrentWeather(city);
@@ -246,7 +229,6 @@ function formSubmitHandler(event) {
     } else {
         alert("Please enter a valid city");
     }
-
 
 }
 
